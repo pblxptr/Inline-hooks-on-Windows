@@ -97,6 +97,10 @@ int main()
 
 	while (sent_bytes != msg_len) {
 		sent_bytes = send(new_s, msg + sent_bytes, msg_len - sent_bytes, 0);
+
+		if (sent_bytes == -1) {
+			break;
+		}
 	}
 	printf("Sent!\n");
 
@@ -104,6 +108,7 @@ int main()
 	while (recv(new_s, buffer, sizeof(buffer), 0) != 0);
 	printf("Reveived\n");
 	
+	getchar();
 
 	return 1;
 }
