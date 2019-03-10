@@ -22,7 +22,7 @@ Hooking scheme (dll responsibility):
 1 - create trampoline, which is simple jump into-our controlled function.
     The function must have apropriate address so example trampoline may be defined as:
     
-    mov eax, 0xDEADC0DE <- when loading library, this address will be replaced with &tramp_func
+    mov eax, 0xDEADC0DE ; when loading library, this address will be replaced with &tramp_func
     jmp eax 
 
 2 - in trampoline do what you need. For example process arguments for hooked function, or prepare 
