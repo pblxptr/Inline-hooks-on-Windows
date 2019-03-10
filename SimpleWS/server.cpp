@@ -58,7 +58,7 @@ int main()
 			struct sockaddr_in* ipv4 = (struct sockaddr_in *)p->ai_addr;
 			addr = &(ipv4->sin_addr);
 			ipver = "IPv4";
-			inet_ntop(p->ai_family, addr, (PSTR)ipaddress, sizeof(ipaddress));
+			inet_ntop(p->ai_family, addr, (PSTR)ipaddress, sizeof(ipaddress)); 
 		}
 
 		break;
