@@ -29,7 +29,6 @@ DWORD init_process(const char* app)
 int main()
 {
 	char hookLibname[] = "hook.dll";
-	//LoadLibraryA("hook.dll");
 	DWORD processId = init_process("SimpleWS.exe");
 
 	if (processId == PID_EMPTY) {
@@ -44,7 +43,7 @@ int main()
 
 		return 1;
 	}
-	puts("Proces opened.");
+	puts("Opening target process.");
 
 	//Allocate space for libname
 	LPVOID libnameAddr = VirtualAllocEx(hProcess, NULL, 0x1000, MEM_RESERVE | MEM_COMMIT, PAGE_EXECUTE_READWRITE);
@@ -56,7 +55,7 @@ int main()
 
 		return 1;
 	}
-	puts("Memory allocated");
+	puts("Allocating memory in target procecss.");
 
 	//Copy lib name into remote(target) space
 	SIZE_T bytesWritten;
@@ -65,11 +64,11 @@ int main()
 
 		CloseHandle(hProcess);
 	}
-	puts("Library name copied.");
 
 	//Load library in remote process by creating new remote thread
 	LPTHREAD_START_ROUTINE routine = (LPTHREAD_START_ROUTINE)GetProcAddress(GetModuleHandleA("kernel32.dll"), "LoadLibraryA");
 
+	puts("Press <Enter> to load dll into remote process.");
 	getchar();
 
 	DWORD threadId;
@@ -82,13 +81,10 @@ int main()
 	}
 	puts("Thread created -> Library should be loaded.");
 
+	puts("Hooks should be loaded.");
 	puts("Press any key to exit...");
 	getchar();
 
-	//CloseHandle(hThread);
-	//CloseHandle(hProcess);
-	
-	TerminateProcess(hProcess, 1);
-
-	
+	CloseHandle(hThread);
+	CloseHandle(hProcess);
 }

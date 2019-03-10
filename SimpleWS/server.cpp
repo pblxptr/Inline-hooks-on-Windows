@@ -17,6 +17,7 @@ int main()
 	WSADATA wsdata;
 	int iResult;
 
+	puts("Press <Enter> to create socket.");
 	getchar();
 
 	iResult = WSAStartup(MAKEWORD(2, 2), &wsdata);
@@ -33,7 +34,7 @@ int main()
 		error("socket");
 	}
 
-	printf("Socket: %d\n", s);
+	printf("Created socket with number: %d\n", s);
 
 	struct addrinfo hints;
 	memset(&hints, 0, sizeof(hints));
@@ -77,19 +78,23 @@ int main()
 	port = ntohs(((struct sockaddr_in*)p->ai_addr)->sin_port);
 
 
-	printf("IP: %s Port: %d\n", ipaddress, port);
+	printf("Socket bound on IP: %s and port: %d\n", ipaddress, port);
 
 	SOCKET new_s;
 	struct sockaddr_in client_addr;
 	int client_addr_len = sizeof(sockaddr_in);
 
+	puts("Waiting for connections...");
+
 	new_s = accept(s, (struct sockaddr *)&client_addr, &client_addr_len);
-	printf("accepted!\n");
+	printf("Connection accepted!\n");
 	
 	char client_address[INET6_ADDRSTRLEN];
 	inet_ntop(client_addr.sin_family, (void *)&client_addr.sin_addr, client_address, client_addr_len);
 
 	printf("Client IP address: %s\n", client_address);
+
+	puts("Sending 'Hello World'...");
 
 	char msg[] = "Hello World";
 	SIZE_T msg_len = strlen(msg) + 1;
@@ -104,11 +109,17 @@ int main()
 	}
 	printf("Sent!\n");
 
+
+	puts("Now I'm wainting for data(received data will no be displayed!)...");
+
 	char buffer[512];
 	while (recv(new_s, buffer, sizeof(buffer), 0) != 0);
-	printf("Reveived\n");
 	
+	puts("Client disconnected. Press <Enter> to exit.");
+
 	getchar();
+
+
 
 	return 1;
 }
