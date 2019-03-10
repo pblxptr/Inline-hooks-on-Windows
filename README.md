@@ -8,13 +8,21 @@ It was tested on Windows 7 x86.
               for connection. Affter the client is connected it sends to it 'Hello World' message, and waits in loop for any data.
 
 **Hook** - the dll that consists of functions which are the hooks on winsock's functions.
+
            Hooks are created on following functions: 
+           
            - socket,
+           
            - accept,
+           
            - listen, 
+           
            - bind, 
+           
            - send, 
+           
            - recv, 
+           
            - connect 
          
 Hooking scheme (dll responsibility):
