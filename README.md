@@ -18,15 +18,15 @@ It was tested on Windows 7 x86.
            - connect 
          
 Hooking scheme (dll responsibility):
-			Step 1 - create trampoline, which is simple jump into-our controlled function.
-					The function must have apropriate address so example trampoline may be defined as:
-					mov eax, 0xDEADC0DE <- when loading library, this address will be replaced with &tramp_func
-					jmp eax 
+1 - create trampoline, which is simple jump into-our controlled function.
+    The function must have apropriate address so example trampoline may be defined as:
+    mov eax, 0xDEADC0DE <- when loading library, this address will be replaced with &tramp_func
+    jmp eax 
 
-			Step 2 - in trampoline do what you need. For example process arguments for hooked function, or prepare 
-			        env that the return address will be controlled by you. If you want to jump into hooked function (e.g. original socket())
-              do not forget about executing instructions that was overrided.
-			Step 3 - return to calle.
+2 - in trampoline do what you need. For example process arguments for hooked function, or prepare 
+    env that the return address will be controlled by you. If you want to jump into hooked function (e.g. original socket())
+    do not forget about executing instructions that was overrided.
+3 - return to calle.
          
 All programs including dll are in very basic for, so if any error occurs, you must debug it by yourself :) 
 Enjoy :) 
