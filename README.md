@@ -9,18 +9,12 @@ It was tested on Windows 7 x86.
 
 **Hook** - the dll that consists of functions which are the hooks on winsock's functions.
 
-Hooks are created on following functions: 
-           
+Hooks are created on following functions:       
 - socket,
- 
-- accept,
-          
+- accept, 
 - listen, 
-
-- bind, 
-           
-- send, 
-           
+- bind,  
+- send,    
 - recv, 
          
 Hooking scheme (dll responsibility):
